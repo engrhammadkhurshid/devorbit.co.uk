@@ -119,11 +119,128 @@
 }
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+    background: #fafafa;
+  }
+
   * {
     @apply border-border outline-ring/50;
   }
+
+  /* Breathing Grainy Glowing Gradient Background Animations */
+  @keyframes breatheLeft {
+    0% {
+      background-position: 0% 50%, 100% 50%;
+      opacity: 0.4;
+    }
+    25% {
+      background-position: 50% 50%, 50% 50%;
+      opacity: 0.6;
+    }
+    50% {
+      background-position: 100% 50%, 0% 50%;
+      opacity: 0.5;
+    }
+    75% {
+      background-position: 50% 50%, 50% 50%;
+      opacity: 0.6;
+    }
+    100% {
+      background-position: 0% 50%, 100% 50%;
+      opacity: 0.4;
+    }
+  }
+
+  @keyframes breatheRight {
+    0% {
+      background-position: 100% 50%, 0% 50%;
+      opacity: 0.3;
+    }
+    25% {
+      background-position: 50% 50%, 50% 50%;
+      opacity: 0.5;
+    }
+    50% {
+      background-position: 0% 50%, 100% 50%;
+      opacity: 0.4;
+    }
+    75% {
+      background-position: 50% 50%, 50% 50%;
+      opacity: 0.5;
+    }
+    100% {
+      background-position: 100% 50%, 0% 50%;
+      opacity: 0.3;
+    }
+  }
+
+  /* Gradient breathing blur effect */
+  @keyframes gradientBreathe {
+    0% {
+      filter: blur(80px) opacity(0.4);
+      transform: translateX(-50%);
+    }
+    50% {
+      filter: blur(80px) opacity(0.7);
+      transform: translateX(50%);
+    }
+    100% {
+      filter: blur(80px) opacity(0.4);
+      transform: translateX(-50%);
+    }
+  }
+
   body {
-    @apply bg-background text-foreground font-sans;
+    @apply bg-background text-foreground font-sans relative overflow-x-hidden;
+    position: relative;
+    background: transparent;
+  }
+
+  /* Breathing gradient background overlay - VISIBLE LAYER */
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: -50%;
+    right: -50%;
+    bottom: 0;
+    width: 200%;
+    height: 100%;
+    background: 
+      radial-gradient(circle at 20% 50%, rgba(74, 144, 226, 0.35) 0%, transparent 50%),
+      radial-gradient(circle at 80% 50%, rgba(106, 85, 205, 0.35) 0%, transparent 50%),
+      radial-gradient(circle at 50% 50%, rgba(37, 99, 235, 0.25) 0%, transparent 50%);
+    background-size: 200% 200%, 200% 200%, 200% 200%;
+    background-position: 0% 50%, 100% 50%, 50% 50%;
+    background-attachment: fixed;
+    animation: breatheLeft 8s ease-in-out infinite, breatheRight 10s ease-in-out infinite 2s;
+    pointer-events: none;
+    z-index: 0;
+    mix-blend-mode: screen;
+    filter: blur(70px);
+    opacity: 1;
+  }
+
+  /* Additional grainy texture overlay */
+  body::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+      url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' result='noise' seed='2' /%3E%3C/filter%3E%3Crect width='400' height='400' fill='%23ffffff' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+    background-size: 400px 400px;
+    background-attachment: fixed;
+    animation: gradientBreathe 12s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 1;
+    mix-blend-mode: overlay;
+    opacity: 0.4;
   }
   /* Added typography hierarchy for DevOrbit brand */
   h1,
@@ -133,6 +250,149 @@
   h5,
   h6 {
     @apply font-serif font-bold;
+  }
+
+  /* Glowing Gradient Border Animation */
+  @keyframes glowingBorder {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  /* Glowing Border Base Styles */
+  .glow-border-primary {
+    position: relative;
+    border: 1px solid transparent;
+    background-image: 
+      linear-gradient(to right, rgba(74, 144, 226, 0.8), rgba(106, 85, 205, 0.8), rgba(74, 144, 226, 0.8)),
+      linear-gradient(to right, rgba(74, 144, 226, 0.2), rgba(106, 85, 205, 0.2));
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+    background-size: 200% 100%;
+    animation: glowingBorder 3s ease-in-out infinite;
+  }
+
+  .glow-border-primary::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+      135deg,
+      rgba(74, 144, 226, 0.4),
+      rgba(106, 85, 205, 0.4),
+      rgba(74, 144, 226, 0.4)
+    );
+    background-size: 200% 200%;
+    animation: glowingBorder 3s ease-in-out infinite;
+    -webkit-mask: 
+      linear-gradient(#fff 0 0) content-box, 
+      linear-gradient(#fff 0 0);
+    mask: 
+      linear-gradient(#fff 0 0) content-box, 
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    border-radius: inherit;
+  }
+
+  /* Secondary Glow Border (Purple Focus) */
+  .glow-border-secondary {
+    position: relative;
+    border: 1px solid transparent;
+    background-image: 
+      linear-gradient(to right, rgba(106, 85, 205, 0.8), rgba(37, 99, 235, 0.8), rgba(106, 85, 205, 0.8)),
+      linear-gradient(to right, rgba(106, 85, 205, 0.2), rgba(37, 99, 235, 0.2));
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+    background-size: 200% 100%;
+    animation: glowingBorder 4s ease-in-out infinite;
+  }
+
+  .glow-border-secondary::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+      135deg,
+      rgba(106, 85, 205, 0.4),
+      rgba(37, 99, 235, 0.4),
+      rgba(106, 85, 205, 0.4)
+    );
+    background-size: 200% 200%;
+    animation: glowingBorder 4s ease-in-out infinite;
+    -webkit-mask: 
+      linear-gradient(#fff 0 0) content-box, 
+      linear-gradient(#fff 0 0);
+    mask: 
+      linear-gradient(#fff 0 0) content-box, 
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    border-radius: inherit;
+  }
+
+  /* Accent Glow Border (Mixed Colors) */
+  .glow-border-accent {
+    position: relative;
+    border: 1px solid transparent;
+    background-image: 
+      linear-gradient(to right, rgba(74, 144, 226, 0.6), rgba(106, 85, 205, 0.6), rgba(74, 144, 226, 0.6)),
+      linear-gradient(to right, rgba(74, 144, 226, 0.1), rgba(106, 85, 205, 0.1));
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+    background-size: 200% 100%;
+    animation: glowingBorder 5s ease-in-out infinite;
+  }
+
+  .glow-border-accent::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+      135deg,
+      rgba(74, 144, 226, 0.3),
+      rgba(106, 85, 205, 0.3),
+      rgba(74, 144, 226, 0.3)
+    );
+    background-size: 200% 200%;
+    animation: glowingBorder 5s ease-in-out infinite;
+    -webkit-mask: 
+      linear-gradient(#fff 0 0) content-box, 
+      linear-gradient(#fff 0 0);
+    mask: 
+      linear-gradient(#fff 0 0) content-box, 
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    border-radius: inherit;
+  }
+
+  /* Box Shadow Glow Effect */
+  .glow-shadow-primary {
+    box-shadow: 0 0 20px rgba(74, 144, 226, 0.3), 0 0 40px rgba(106, 85, 205, 0.2), inset 0 0 20px rgba(74, 144, 226, 0.1);
+  }
+
+  .glow-shadow-secondary {
+    box-shadow: 0 0 20px rgba(106, 85, 205, 0.3), 0 0 40px rgba(37, 99, 235, 0.2), inset 0 0 20px rgba(106, 85, 205, 0.1);
+  }
+
+  .glow-shadow-accent {
+    box-shadow: 0 0 20px rgba(74, 144, 226, 0.25), 0 0 40px rgba(106, 85, 205, 0.15), inset 0 0 20px rgba(74, 144, 226, 0.08);
   }
 
   /* Touch-friendly interactions */

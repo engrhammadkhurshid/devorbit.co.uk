@@ -2,15 +2,12 @@
 
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
+import { Footer } from "@/components/footer"
 import { ResponsiveContainer } from "@/components/responsive-container"
 import { PerformanceMonitor } from "@/components/performance-monitor"
-import { MegaMenu } from "@/components/mega-menu"
 import { MobileOptimizedLayout } from "@/components/mobile-optimized-layout"
 import { motion } from "framer-motion"
 import {
-  ChevronDown,
-  Menu,
-  X,
   Sparkles,
   Zap,
   Play,
@@ -26,8 +23,6 @@ import {
 } from "lucide-react"
 
 export default function HomePage() {
-  const [isMegaMenuOpen, setIsMegaMenuOpen] = useState(false)
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -68,153 +63,8 @@ export default function HomePage() {
           <div className="absolute top-1/2 left-0 w-64 h-64 bg-accent/5 rounded-full blur-3xl" />
         </div>
 
-        {/* Navigation */}
-        <motion.nav
-          className="sticky top-0 z-50 bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60 border-b border-border/50"
-          initial={{ y: -100 }}
-          animate={{ y: 0 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-        >
-          <ResponsiveContainer>
-            <div className="flex justify-between items-center h-16 sm:h-18">
-              <div className="flex items-center">
-                <motion.div
-                  className="flex items-center space-x-2"
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <div className="w-8 h-8 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center">
-                    <Sparkles className="h-4 w-4 text-white" />
-                  </div>
-                  <h1 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-                    DevOrbit
-                  </h1>
-                </motion.div>
-              </div>
-
-              {/* Desktop Navigation */}
-              <div className="hidden lg:flex items-center space-x-8">
-                <div className="relative group">
-                  <motion.button
-                    onMouseEnter={() => setIsMegaMenuOpen(true)}
-                    onMouseLeave={() => setIsMegaMenuOpen(false)}
-                    className="flex items-center space-x-1 text-foreground hover:text-primary transition-colors font-medium"
-                    whileHover={{ y: -2 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <span>Services</span>
-                    <ChevronDown className={`h-4 w-4 transition-transform ${isMegaMenuOpen ? "rotate-180" : ""}`} />
-                  </motion.button>
-                  <div 
-                    onMouseEnter={() => setIsMegaMenuOpen(true)} 
-                    onMouseLeave={() => setIsMegaMenuOpen(false)}
-                    className="absolute top-full left-0"
-                  >
-                    <MegaMenu isOpen={isMegaMenuOpen} onClose={() => setIsMegaMenuOpen(false)} />
-                  </div>
-                </div>
-                <motion.a
-                  href="/case-studies"
-                  className="text-foreground hover:text-primary transition-colors font-medium"
-                  whileHover={{ y: -2 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  Case Studies
-                </motion.a>
-                <motion.a
-                  href="/blog"
-                  className="text-foreground hover:text-primary transition-colors font-medium"
-                  whileHover={{ y: -2 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  Blog
-                </motion.a>
-                <motion.a
-                  href="/contact"
-                  className="text-foreground hover:text-primary transition-colors font-medium"
-                  whileHover={{ y: -2 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  Contact
-                </motion.a>
-                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                  <Button
-                    size="sm"
-                    className="bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 shadow-lg"
-                    onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-                  >
-                    Get Free Strategy Session
-                  </Button>
-                </motion.div>
-              </div>
-
-              {/* Mobile Menu Button */}
-              <div className="lg:hidden">
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="p-3 touch-manipulation"
-                  style={{ minHeight: "44px", minWidth: "44px" }}
-                  onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                >
-                  {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-                </Button>
-              </div>
-            </div>
-          </ResponsiveContainer>
-
-          {/* Mobile Menu */}
-          {isMobileMenuOpen && (
-            <motion.div
-              className="lg:hidden bg-background/95 backdrop-blur-xl border-t border-border/50 max-h-[70vh] overflow-y-auto"
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3 }}
-            >
-              <div className="px-4 py-6 space-y-2">
-                <a
-                  href="/services"
-                  className="block text-foreground hover:text-primary transition-colors font-medium py-3 px-2 rounded-lg hover:bg-muted/50 touch-manipulation"
-                  style={{ minHeight: "48px" }}
-                >
-                  Services
-                </a>
-                <a
-                  href="/case-studies"
-                  className="block text-foreground hover:text-primary transition-colors font-medium py-3 px-2 rounded-lg hover:bg-muted/50 touch-manipulation"
-                  style={{ minHeight: "48px" }}
-                >
-                  Case Studies
-                </a>
-                <a
-                  href="/blog"
-                  className="block text-foreground hover:text-primary transition-colors font-medium py-3 px-2 rounded-lg hover:bg-muted/50 touch-manipulation"
-                  style={{ minHeight: "48px" }}
-                >
-                  Blog
-                </a>
-                <a
-                  href="/contact"
-                  className="block text-foreground hover:text-primary transition-colors font-medium py-3 px-2 rounded-lg hover:bg-muted/50 touch-manipulation"
-                  style={{ minHeight: "48px" }}
-                >
-                  Contact
-                </a>
-                <Button
-                  className="w-full bg-gradient-to-r from-primary to-secondary mt-4 touch-manipulation"
-                  style={{ minHeight: "48px" }}
-                  onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-                >
-                  Get Free Strategy Session
-                </Button>
-              </div>
-            </motion.div>
-          )}
-        </motion.nav>
-
         {/* Hero Section */}
-        <section className="relative pt-4 sm:pt-6 lg:pt-8 xl:pt-10 pb-8 sm:pb-12 lg:pb-16 xl:pb-20 overflow-hidden">
+        <section className="relative pt-8 sm:pt-6 lg:pt-4 xl:pt-2 pb-8 sm:pb-12 lg:pb-16 xl:pb-20 overflow-hidden">
           <div className="absolute inset-0 -z-10">
             <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-secondary/5 to-accent/5 opacity-60" />
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_50%,rgba(106,85,205,0.1),transparent_50%)]" />
@@ -1014,7 +864,9 @@ export default function HomePage() {
                     </div>
                     <div>
                       <h3 className="font-semibold mb-1">Address</h3>
-                      <p className="text-muted-foreground">123 Tech Street, London, UK</p>
+                      <a href="https://share.google/98vRXKRnnCN7akr6m" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
+                        18 Fonthill Rd, Finsbury Park, London N4 3HX, United Kingdom
+                      </a>
                     </div>
                   </div>
 
@@ -1023,8 +875,10 @@ export default function HomePage() {
                       <Phone className="h-6 w-6 text-primary" />
                     </div>
                     <div>
-                      <h3 className="font-semibold mb-1">Phone</h3>
-                      <p className="text-muted-foreground">+44 (0) 20 1234 5678</p>
+                      <h3 className="font-semibold mb-1">WhatsApp</h3>
+                      <a href="https://wa.me/447453217283" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
+                        +44 7453 217283
+                      </a>
                     </div>
                   </div>
 
@@ -1034,7 +888,9 @@ export default function HomePage() {
                     </div>
                     <div>
                       <h3 className="font-semibold mb-1">Email</h3>
-                      <p className="text-muted-foreground">hello@devorbit.com</p>
+                      <a href="mailto:hello@devorbit.co.uk" className="text-muted-foreground hover:text-primary transition-colors">
+                        hello@devorbit.co.uk
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -1074,7 +930,7 @@ export default function HomePage() {
                       value={formData.fullName}
                       onChange={handleFormChange}
                       required
-                      className="w-full px-4 py-3 rounded-lg border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
+                      className="w-full px-4 py-3 rounded-lg border-2 border-primary/30 bg-background focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all placeholder:text-muted-foreground/40"
                       placeholder="Your name"
                     />
                   </div>
@@ -1088,7 +944,7 @@ export default function HomePage() {
                         value={formData.email}
                         onChange={handleFormChange}
                         required
-                        className="w-full px-4 py-3 rounded-lg border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
+                        className="w-full px-4 py-3 rounded-lg border-2 border-primary/30 bg-background focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all placeholder:text-muted-foreground/40"
                         placeholder="your@email.com"
                       />
                     </div>
@@ -1100,7 +956,7 @@ export default function HomePage() {
                         value={formData.phone}
                         onChange={handleFormChange}
                         required
-                        className="w-full px-4 py-3 rounded-lg border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
+                        className="w-full px-4 py-3 rounded-lg border-2 border-primary/30 bg-background focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all placeholder:text-muted-foreground/40"
                         placeholder="+44 7453 217283"
                       />
                     </div>
@@ -1114,7 +970,7 @@ export default function HomePage() {
                       value={formData.company}
                       onChange={handleFormChange}
                       required
-                      className="w-full px-4 py-3 rounded-lg border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
+                      className="w-full px-4 py-3 rounded-lg border-2 border-primary/30 bg-background focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all placeholder:text-muted-foreground/40"
                       placeholder="Your company"
                     />
                   </div>
@@ -1127,7 +983,7 @@ export default function HomePage() {
                         value={formData.service}
                         onChange={handleFormChange}
                         required
-                        className="w-full px-4 py-3 rounded-lg border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
+                        className="w-full px-4 py-3 rounded-lg border-2 border-primary/30 bg-background focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all placeholder:text-muted-foreground/40"
                       >
                         <option value="">Select a service</option>
                         <option value="web">Web Development</option>
@@ -1144,7 +1000,7 @@ export default function HomePage() {
                         value={formData.budget}
                         onChange={handleFormChange}
                         required
-                        className="w-full px-4 py-3 rounded-lg border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
+                        className="w-full px-4 py-3 rounded-lg border-2 border-primary/30 bg-background focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all placeholder:text-muted-foreground/40"
                       >
                         <option value="">Select budget</option>
                         <option value="small">Small: &lt;$5,000</option>
@@ -1163,7 +1019,7 @@ export default function HomePage() {
                       onChange={handleFormChange}
                       required
                       rows={4}
-                      className="w-full px-4 py-3 rounded-lg border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all resize-none"
+                      className="w-full px-4 py-3 rounded-lg border-2 border-primary/30 bg-background focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all resize-none placeholder:text-muted-foreground/40"
                       placeholder="Tell us about your project..."
                     />
                   </div>
@@ -1233,8 +1089,8 @@ export default function HomePage() {
                   </div>
                   <div className="flex items-center space-x-2">
                     <Mail className="h-4 w-4 flex-shrink-0 text-primary" />
-                    <a href="https://devorbit.co.uk" className="hover:text-primary transition-colors">
-                      https://devorbit.co.uk
+                    <a href="mailto:hello@devorbit.co.uk" className="hover:text-primary transition-colors">
+                      hello@devorbit.co.uk
                     </a>
                   </div>
                 </div>

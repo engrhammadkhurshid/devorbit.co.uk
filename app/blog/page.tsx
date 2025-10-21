@@ -2,6 +2,8 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Calendar, Clock, User } from "lucide-react"
+import { Header } from "@/components/header"
+import { Footer } from "@/components/footer"
 
 export default function BlogPage() {
   const blogPosts = [
@@ -130,33 +132,7 @@ export default function BlogPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Navigation */}
-      <nav className="sticky top-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-border">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center">
-              <a href="/" className="text-2xl font-bold text-primary">
-                DevOrbit
-              </a>
-            </div>
-            <div className="hidden md:flex items-center space-x-8">
-              <a href="/#services" className="text-foreground hover:text-primary transition-colors">
-                Services
-              </a>
-              <a href="/case-studies" className="text-foreground hover:text-primary transition-colors">
-                Case Studies
-              </a>
-              <a href="/blog" className="text-primary font-medium">
-                Blog
-              </a>
-              <a href="/contact" className="text-foreground hover:text-primary transition-colors">
-                Contact
-              </a>
-              <Button>Get Free Strategy Session</Button>
-            </div>
-          </div>
-        </div>
-      </nav>
+      <Header />
 
       {/* Hero Section */}
       <section className="py-20 lg:py-32">
@@ -319,6 +295,8 @@ export default function BlogPage() {
           </Button>
         </div>
       </section>
+      
+      <Footer />
     </div>
   )
 }

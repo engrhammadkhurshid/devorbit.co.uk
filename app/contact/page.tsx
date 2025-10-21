@@ -10,6 +10,8 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { MapPin, Phone, Mail, Clock, Linkedin, Twitter, Github } from "lucide-react"
+import { Header } from "@/components/header"
+import { Footer } from "@/components/footer"
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -54,33 +56,7 @@ export default function ContactPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Navigation */}
-      <nav className="sticky top-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-border">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center">
-              <a href="/" className="text-2xl font-bold text-primary">
-                DevOrbit
-              </a>
-            </div>
-            <div className="hidden md:flex items-center space-x-8">
-              <a href="/#services" className="text-foreground hover:text-primary transition-colors">
-                Services
-              </a>
-              <a href="/case-studies" className="text-foreground hover:text-primary transition-colors">
-                Case Studies
-              </a>
-              <a href="/blog" className="text-foreground hover:text-primary transition-colors">
-                Blog
-              </a>
-              <a href="/contact" className="text-primary font-medium">
-                Contact
-              </a>
-              <Button>Get Free Strategy Session</Button>
-            </div>
-          </div>
-        </div>
-      </nav>
+      <Header />
 
       {/* Hero Section */}
       <section className="py-20 lg:py-32">
@@ -414,6 +390,7 @@ export default function ContactPage() {
           </a>
         </Button>
       </div>
+      <Footer />
     </div>
   )
 }

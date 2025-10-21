@@ -2,6 +2,8 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import { Poppins } from "next/font/google"
+import { Header } from "@/components/header"
+import { Chatbot } from "@/components/chatbot"
 import "./globals.css"
 
 const inter = Inter({
@@ -146,7 +148,13 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="scroll-smooth">{children}</body>
+      <body className="scroll-smooth">
+        <Header />
+        <Chatbot />
+        <div className="relative z-10">
+          {children}
+        </div>
+      </body>
     </html>
   )
 }
