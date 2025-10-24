@@ -52,7 +52,7 @@ export function InteractiveChatbot() {
     quote:
       "I'd love to help you get a personalized quote! To provide the most accurate estimate, I'll need to know:\n\n• What type of project are you planning?\n• What's your timeline?\n• What's your approximate budget range?\n\nYou can also book a free 30-minute strategy session with our team!",
     contact:
-      "Here's how you can reach us:\n\n📧 **Email**: hello@devorbit.com\n📞 **Phone**: +44 20 1234 5678\n📍 **Address**: 123 Tech Street, London EC2A 4DP\n⏰ **Hours**: Mon-Fri 9AM-6PM GMT\n\nWould you like to schedule a call or continue chatting here?",
+      "Here's how you can reach us:\n\n📧 **Email**: hello@devorbit.co.uk\n📞 **WhatsApp/Phone**: +44 7453 217283\n📍 **Address**: 18 Fonthill Rd, Finsbury Park, London N4 3HX\n⏰ **Hours**: Mon-Fri 9AM-6PM GMT\n\nWould you like to schedule a call or continue chatting here?",
     hello:
       "Hello! Great to meet you! I'm here to help you learn about DevOrbit's services and how we can help transform your business. What would you like to know?",
     help: "I can help you with:\n\n• Information about our services\n• Pricing and quotes\n• Booking consultations\n• Technical questions\n• Project timelines\n\nWhat specific information are you looking for?",

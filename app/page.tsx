@@ -1,11 +1,13 @@
 "use client"
 
 import { useState } from "react"
+import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Footer } from "@/components/footer"
 import { ResponsiveContainer } from "@/components/responsive-container"
 import { PerformanceMonitor } from "@/components/performance-monitor"
 import { MobileOptimizedLayout } from "@/components/mobile-optimized-layout"
+import { TestimonialsCarousel } from "@/components/testimonials-carousel"
 import { motion } from "framer-motion"
 import {
   Sparkles,
@@ -136,11 +138,14 @@ export default function HomePage() {
                     <Button
                       variant="outline"
                       size="lg"
-                      className="border-2 hover:bg-muted/50 px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg group bg-transparent w-full sm:w-auto touch-manipulation"
+                      className="border-2 hover:bg-primary hover:border-primary hover:text-primary-foreground px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg group bg-transparent w-full sm:w-auto touch-manipulation transition-all duration-300"
                       style={{ minHeight: "48px" }}
+                      asChild
                     >
-                      <Play className="mr-2 h-4 w-4 sm:h-5 sm:w-5 group-hover:scale-110 transition-transform" />
-                      <span className="text-sm sm:text-base">View Our Work</span>
+                      <Link href="/case-studies">
+                        <Play className="mr-2 h-4 w-4 sm:h-5 sm:w-5 group-hover:scale-110 transition-transform" />
+                        <span className="text-sm sm:text-base">View Our Work</span>
+                      </Link>
                     </Button>
                   </motion.div>
                 </motion.div>
@@ -330,18 +335,21 @@ export default function HomePage() {
                     description: "Beautiful, user-centered designs that convert",
                     tools: ["Figma", "Adobe XD", "Adobe Illustrator", "InDesign"],
                     href: "/services/ui-ux-design",
+                    image: "/services-uiux-thumbnail.webp",
                   },
                   {
                     title: "Web Development",
                     description: "High-performance web applications",
                     tools: ["React", "Next.js", "TypeScript", "Tailwind CSS"],
                     href: "/services/web-development",
+                    image: "/services-web-thumbnail.webp",
                   },
                   {
                     title: "CMS Development",
                     description: "Flexible content management systems",
                     tools: ["WordPress", "Shopify", "Framer", "Wix"],
                     href: "/services/cms-development",
+                    image: "/services-cms-thumbnail.webp",
                   },
                 ].map((service, index) => (
                   <motion.a
@@ -354,17 +362,32 @@ export default function HomePage() {
                     viewport={{ once: true }}
                     whileHover={{ y: -5 }}
                   >
-                    <div className="bg-card border border-border rounded-2xl p-6 h-full group-hover:shadow-xl transition-all duration-300 group-hover:border-primary/20">
-                      <h4 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors">
-                        {service.title}
-                      </h4>
-                      <p className="text-muted-foreground mb-4">{service.description}</p>
-                      <div className="flex flex-wrap gap-2">
-                        {service.tools.map((tool) => (
-                          <span key={tool} className="text-xs bg-primary/10 text-primary px-3 py-1 rounded-full">
-                            {tool}
-                          </span>
-                        ))}
+                    <div className="bg-card border border-border rounded-2xl overflow-hidden h-full group-hover:shadow-xl transition-all duration-300 group-hover:border-primary/20 flex flex-col">
+                      {/* Image Section */}
+                      {service.image ? (
+                        <img
+                          src={service.image}
+                          alt={service.title}
+                          className="w-full h-48 object-cover"
+                        />
+                      ) : (
+                        <div className="w-full h-48 bg-muted animate-pulse flex items-center justify-center">
+                          <div className="text-muted-foreground">Image coming soon</div>
+                        </div>
+                      )}
+                      {/* Content Section */}
+                      <div className="p-6 flex flex-col flex-grow">
+                        <h4 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors">
+                          {service.title}
+                        </h4>
+                        <p className="text-muted-foreground mb-4 flex-grow">{service.description}</p>
+                        <div className="flex flex-wrap gap-2">
+                          {service.tools.map((tool) => (
+                            <span key={tool} className="text-xs bg-primary/10 text-primary px-3 py-1 rounded-full">
+                              {tool}
+                            </span>
+                          ))}
+                        </div>
                       </div>
                     </div>
                   </motion.a>
@@ -393,18 +416,21 @@ export default function HomePage() {
                     description: "Premium iOS applications",
                     tools: ["Swift", "SwiftUI", "Xcode", "iOS SDK"],
                     href: "/services/ios-development",
+                    image: "/services-ios-thumbnail.webp",
                   },
                   {
                     title: "Android Apps",
                     description: "Robust Android applications",
                     tools: ["Kotlin", "Java", "Android Studio", "Firebase"],
                     href: "/services/android-development",
+                    image: "/services-androiddevelopment-thumbnail.png",
                   },
                   {
                     title: "Hybrid Apps",
                     description: "Cross-platform mobile solutions",
                     tools: ["Flutter", "Dart", "React Native", "Expo"],
                     href: "/services/hybrid-development",
+                    image: "/services-hybrid-thumbnail.webp",
                   },
                 ].map((service, index) => (
                   <motion.a
@@ -417,17 +443,32 @@ export default function HomePage() {
                     viewport={{ once: true }}
                     whileHover={{ y: -5 }}
                   >
-                    <div className="bg-card border border-border rounded-2xl p-6 h-full group-hover:shadow-xl transition-all duration-300 group-hover:border-primary/20">
-                      <h4 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors">
-                        {service.title}
-                      </h4>
-                      <p className="text-muted-foreground mb-4">{service.description}</p>
-                      <div className="flex flex-wrap gap-2">
-                        {service.tools.map((tool) => (
-                          <span key={tool} className="text-xs bg-green-500/10 text-green-700 px-3 py-1 rounded-full">
-                            {tool}
-                          </span>
-                        ))}
+                    <div className="bg-card border border-border rounded-2xl overflow-hidden h-full group-hover:shadow-xl transition-all duration-300 group-hover:border-primary/20 flex flex-col">
+                      {/* Image Section */}
+                      {service.image ? (
+                        <img
+                          src={service.image}
+                          alt={service.title}
+                          className="w-full h-48 object-cover"
+                        />
+                      ) : (
+                        <div className="w-full h-48 bg-muted animate-pulse flex items-center justify-center">
+                          <div className="text-muted-foreground">Image coming soon</div>
+                        </div>
+                      )}
+                      {/* Content Section */}
+                      <div className="p-6 flex flex-col flex-grow">
+                        <h4 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors">
+                          {service.title}
+                        </h4>
+                        <p className="text-muted-foreground mb-4 flex-grow">{service.description}</p>
+                        <div className="flex flex-wrap gap-2">
+                          {service.tools.map((tool) => (
+                            <span key={tool} className="text-xs bg-green-500/10 text-green-700 px-3 py-1 rounded-full">
+                              {tool}
+                            </span>
+                          ))}
+                        </div>
                       </div>
                     </div>
                   </motion.a>
@@ -456,18 +497,21 @@ export default function HomePage() {
                     description: "Custom ML models and solutions",
                     tools: ["TensorFlow", "PyTorch", "Scikit-learn", "Python"],
                     href: "/services/machine-learning",
+                    image: "/services-ai-thumbnail.png",
                   },
                   {
                     title: "AI Automation",
                     description: "Intelligent process automation",
                     tools: ["OpenAI", "LangChain", "Hugging Face", "GPT"],
                     href: "/services/ai-automation",
+                    image: null, // Skeleton placeholder
                   },
                   {
                     title: "Data Analytics",
                     description: "Advanced data insights and visualization",
                     tools: ["Tableau", "Power BI", "Pandas", "SQL"],
                     href: "/services/data-analytics",
+                    image: null, // Skeleton placeholder
                   },
                 ].map((service, index) => (
                   <motion.a
@@ -480,17 +524,32 @@ export default function HomePage() {
                     viewport={{ once: true }}
                     whileHover={{ y: -5 }}
                   >
-                    <div className="bg-card border border-border rounded-2xl p-6 h-full group-hover:shadow-xl transition-all duration-300 group-hover:border-primary/20">
-                      <h4 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors">
-                        {service.title}
-                      </h4>
-                      <p className="text-muted-foreground mb-4">{service.description}</p>
-                      <div className="flex flex-wrap gap-2">
-                        {service.tools.map((tool) => (
-                          <span key={tool} className="text-xs bg-purple-500/10 text-purple-700 px-3 py-1 rounded-full">
-                            {tool}
-                          </span>
-                        ))}
+                    <div className="bg-card border border-border rounded-2xl overflow-hidden h-full group-hover:shadow-xl transition-all duration-300 group-hover:border-primary/20 flex flex-col">
+                      {/* Image Section */}
+                      {service.image ? (
+                        <img
+                          src={service.image}
+                          alt={service.title}
+                          className="w-full h-48 object-cover"
+                        />
+                      ) : (
+                        <div className="w-full h-48 bg-muted animate-pulse flex items-center justify-center">
+                          <div className="text-muted-foreground">Image coming soon</div>
+                        </div>
+                      )}
+                      {/* Content Section */}
+                      <div className="p-6 flex flex-col flex-grow">
+                        <h4 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors">
+                          {service.title}
+                        </h4>
+                        <p className="text-muted-foreground mb-4 flex-grow">{service.description}</p>
+                        <div className="flex flex-wrap gap-2">
+                          {service.tools.map((tool) => (
+                            <span key={tool} className="text-xs bg-purple-500/10 text-purple-700 px-3 py-1 rounded-full">
+                              {tool}
+                            </span>
+                          ))}
+                        </div>
                       </div>
                     </div>
                   </motion.a>
@@ -684,103 +743,7 @@ export default function HomePage() {
         </section>
 
         {/* Testimonials Section */}
-        <section className="py-20 sm:py-24 lg:py-32">
-          <ResponsiveContainer>
-            <motion.div
-              className="text-center mb-16"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-            >
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6">
-                What Our Clients{" "}
-                <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Say</span>
-              </h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Real feedback from businesses we've helped transform
-              </p>
-            </motion.div>
-
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {[
-                {
-                  name: "Sarah Johnson",
-                  company: "TechFlow Solutions",
-                  role: "CEO",
-                  testimonial:
-                    "DevOrbit transformed our e-commerce platform. The results were beyond expectations - 340% increase in conversions!",
-                  category: "Website Project",
-                  avatar: "/professional-woman.png",
-                },
-                {
-                  name: "Michael Chen",
-                  company: "StreamHub",
-                  role: "Founder",
-                  testimonial:
-                    "Their mobile app development expertise helped us reach 500K users in just 6 months. Incredible team!",
-                  category: "SaaS Project",
-                  avatar: "/professional-man.png",
-                },
-                {
-                  name: "Emma Rodriguez",
-                  company: "DataFlow Inc",
-                  role: "CTO",
-                  testimonial:
-                    "The AI-powered analytics dashboard they built processes 2.5M data points daily. Game-changer for our business.",
-                  category: "AI Development",
-                  avatar: "/professional-woman-cto.jpg",
-                },
-              ].map((testimonial, index) => (
-                <motion.div
-                  key={index}
-                  className="group"
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                >
-                  <div className="bg-card border border-border rounded-2xl p-8 h-full group-hover:shadow-xl transition-all duration-300 group-hover:border-primary/20 relative overflow-hidden">
-                    <motion.div
-                      className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                      animate={{
-                        scale: [1, 1.1, 1],
-                      }}
-                      transition={{ duration: 3, repeat: Number.POSITIVE_INFINITY }}
-                    />
-
-                    <div className="relative z-10">
-                      <div className="flex items-center space-x-4 mb-6">
-                        <img
-                          src={testimonial.avatar || "/placeholder.svg"}
-                          alt={testimonial.name}
-                          className="w-12 h-12 rounded-full"
-                        />
-                        <div>
-                          <h4 className="font-semibold">{testimonial.name}</h4>
-                          <p className="text-sm text-muted-foreground">{testimonial.role}</p>
-                        </div>
-                      </div>
-
-                      <p className="text-muted-foreground mb-6 italic">"{testimonial.testimonial}"</p>
-
-                      <div className="flex items-center justify-between">
-                        <span className="text-xs bg-primary/10 text-primary px-3 py-1 rounded-full">
-                          {testimonial.category}
-                        </span>
-                        <div className="flex space-x-1">
-                          {[1, 2, 3, 4, 5].map((i) => (
-                            <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </ResponsiveContainer>
-        </section>
+        <TestimonialsCarousel />
 
         {/* CTA Section */}
         <section className="py-16 sm:py-20 lg:py-24 bg-gradient-to-r from-primary/10 via-secondary/10 to-accent/10 relative overflow-hidden">

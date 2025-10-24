@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import Link from "next/link"
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
@@ -11,15 +11,42 @@ export function Header() {
   const [openMegaMenu, setOpenMegaMenu] = useState<string | null>(null)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
+  const menuCloseTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50)
     }
 
+    const handleClickOutside = () => {
+      // Close mega menu on any click outside
+      setOpenMegaMenu(null)
+    }
+
     window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
+    document.addEventListener("click", handleClickOutside)
+    
+    return () => {
+      window.removeEventListener("scroll", handleScroll)
+      document.removeEventListener("click", handleClickOutside)
+    }
   }, [])
+
+  const handleMenuMouseEnter = (menuType: string) => {
+    // Clear any pending close timeout
+    if (menuCloseTimeoutRef.current) {
+      clearTimeout(menuCloseTimeoutRef.current)
+      menuCloseTimeoutRef.current = null
+    }
+    setOpenMegaMenu(menuType)
+  }
+
+  const handleMenuMouseLeave = () => {
+    // Add a small delay before closing to prevent flickering when moving between menus
+    menuCloseTimeoutRef.current = setTimeout(() => {
+      setOpenMegaMenu(null)
+    }, 100)
+  }
 
   return (
     <div
@@ -64,52 +91,91 @@ export function Header() {
               Home
             </motion.a>
 
-            <div 
+            {/* Mega Menu Container */}
+            <div
               className="relative"
-              onMouseEnter={() => setOpenMegaMenu("services")}
-              onMouseLeave={() => setOpenMegaMenu(null)}
+              onMouseEnter={() => {
+                if (menuCloseTimeoutRef.current) {
+                  clearTimeout(menuCloseTimeoutRef.current)
+                  menuCloseTimeoutRef.current = null
+                }
+              }}
+              onMouseLeave={() => {
+                menuCloseTimeoutRef.current = setTimeout(() => {
+                  setOpenMegaMenu(null)
+                }, 150)
+              }}
             >
-              <motion.button
-                className="flex items-center space-x-1 text-foreground hover:text-primary transition-colors font-medium"
-                whileHover={{ y: -2 }}
-                transition={{ duration: 0.2 }}
-              >
-                <span>Services</span>
-                <ChevronDown className={`h-4 w-4 transition-transform ${openMegaMenu === "services" ? "rotate-180" : ""}`} />
-              </motion.button>
-              <MegaMenu type="services" isOpen={openMegaMenu === "services"} onClose={() => setOpenMegaMenu(null)} />
-            </div>
+              <div className="flex items-center space-x-8">
+                <motion.a
+                  href="/services"
+                  className="flex items-center space-x-1 text-foreground hover:text-primary transition-colors font-medium cursor-pointer"
+                  whileHover={{ y: -2 }}
+                  transition={{ duration: 0.2 }}
+                  onMouseEnter={() => handleMenuMouseEnter("services")}
+                  onClick={(e) => {
+                    // Allow normal navigation on click
+                  }}
+                >
+                  <span>Services</span>
+                  <motion.div
+                    animate={{ rotate: openMegaMenu === "services" ? 180 : 0 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <ChevronDown className="h-4 w-4" />
+                  </motion.div>
+                </motion.a>
 
-            <div 
-              className="relative"
-              onMouseEnter={() => setOpenMegaMenu("case-studies")}
-              onMouseLeave={() => setOpenMegaMenu(null)}
-            >
-              <motion.button
-                className="flex items-center space-x-1 text-foreground hover:text-primary transition-colors font-medium"
-                whileHover={{ y: -2 }}
-                transition={{ duration: 0.2 }}
-              >
-                <span>Case Studies</span>
-                <ChevronDown className={`h-4 w-4 transition-transform ${openMegaMenu === "case-studies" ? "rotate-180" : ""}`} />
-              </motion.button>
-              <MegaMenu type="case-studies" isOpen={openMegaMenu === "case-studies"} onClose={() => setOpenMegaMenu(null)} />
-            </div>
+                <motion.a
+                  href="/case-studies"
+                  className="flex items-center space-x-1 text-foreground hover:text-primary transition-colors font-medium cursor-pointer"
+                  whileHover={{ y: -2 }}
+                  transition={{ duration: 0.2 }}
+                  onMouseEnter={() => handleMenuMouseEnter("case-studies")}
+                  onClick={(e) => {
+                    // Allow normal navigation on click
+                  }}
+                >
+                  <span>Case Studies</span>
+                  <motion.div
+                    animate={{ rotate: openMegaMenu === "case-studies" ? 180 : 0 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <ChevronDown className="h-4 w-4" />
+                  </motion.div>
+                </motion.a>
 
-            <div 
-              className="relative"
-              onMouseEnter={() => setOpenMegaMenu("blog")}
-              onMouseLeave={() => setOpenMegaMenu(null)}
-            >
-              <motion.button
-                className="flex items-center space-x-1 text-foreground hover:text-primary transition-colors font-medium"
-                whileHover={{ y: -2 }}
-                transition={{ duration: 0.2 }}
-              >
-                <span>Blog</span>
-                <ChevronDown className={`h-4 w-4 transition-transform ${openMegaMenu === "blog" ? "rotate-180" : ""}`} />
-              </motion.button>
-              <MegaMenu type="blog" isOpen={openMegaMenu === "blog"} onClose={() => setOpenMegaMenu(null)} />
+                <motion.a
+                  href="/blog"
+                  className="flex items-center space-x-1 text-foreground hover:text-primary transition-colors font-medium cursor-pointer"
+                  whileHover={{ y: -2 }}
+                  transition={{ duration: 0.2 }}
+                  onMouseEnter={() => handleMenuMouseEnter("blog")}
+                  onClick={(e) => {
+                    // Allow normal navigation on click
+                  }}
+                >
+                  <span>Blog</span>
+                  <motion.div
+                    animate={{ rotate: openMegaMenu === "blog" ? 180 : 0 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <ChevronDown className="h-4 w-4" />
+                  </motion.div>
+                </motion.a>
+              </div>
+
+              {/* Mega Menus - Only visible on hover, positioned absolutely */}
+              {openMegaMenu && (
+                <div 
+                  className="absolute top-full left-0 right-0 pointer-events-auto"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <MegaMenu type="services" isOpen={openMegaMenu === "services"} onClose={() => setOpenMegaMenu(null)} />
+                  <MegaMenu type="case-studies" isOpen={openMegaMenu === "case-studies"} onClose={() => setOpenMegaMenu(null)} />
+                  <MegaMenu type="blog" isOpen={openMegaMenu === "blog"} onClose={() => setOpenMegaMenu(null)} />
+                </div>
+              )}
             </div>
 
             <motion.a

@@ -111,22 +111,22 @@ export function MegaMenu({ type, isOpen, onClose }: MegaMenuProps) {
     <AnimatePresence>
       {isOpen && (
         <>
-          {/* Backdrop */}
+          {/* Backdrop - pointer-events-none so it doesn't block interaction */}
           <motion.div
-            className="fixed inset-0 bg-transparent z-40"
+            className="fixed inset-0 bg-transparent z-40 pointer-events-none"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={onClose}
           />
 
           {/* Container-Width Mega Menu */}
           <motion.div
-            className="fixed left-1/2 top-[70px] transform -translate-x-1/2 bg-background/98 backdrop-blur-2xl border border-border shadow-2xl z-50 rounded-lg w-[calc(100%-2rem)] max-w-7xl"
+            className="fixed left-1/2 top-[70px] transform -translate-x-1/2 bg-background/98 backdrop-blur-2xl border border-border shadow-2xl z-50 rounded-lg w-[calc(100%-2rem)] max-w-7xl pointer-events-auto"
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
+            onClick={(e) => e.stopPropagation()}
           >
             {/* Inner Container with full width inside modal */}
             <div className="px-4 sm:px-6 lg:px-8 py-6 sm:py-8">

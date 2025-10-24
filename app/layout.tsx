@@ -4,6 +4,7 @@ import { Inter } from "next/font/google"
 import { Poppins } from "next/font/google"
 import { Header } from "@/components/header"
 import { Chatbot } from "@/components/chatbot"
+import { ScrollToTop } from "@/components/scroll-to-top"
 import "./globals.css"
 
 const inter = Inter({
@@ -104,9 +105,8 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
         <meta name="theme-color" content="#007BFF" />
         <meta name="msapplication-TileColor" content="#007BFF" />
-        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.svg" />
         <link rel="manifest" href="/site.webmanifest" />
 
         {/* Schema.org structured data */}
@@ -122,15 +122,15 @@ export default function RootLayout({
               logo: "https://devorbit.com/logo.png",
               contactPoint: {
                 "@type": "ContactPoint",
-                telephone: "+44-20-1234-5678",
+                telephone: "+44-7453-217283",
                 contactType: "customer service",
                 availableLanguage: "English",
               },
               address: {
                 "@type": "PostalAddress",
-                streetAddress: "123 Tech Street",
+                streetAddress: "18 Fonthill Rd, Finsbury Park",
                 addressLocality: "London",
-                postalCode: "EC2A 4DP",
+                postalCode: "N4 3HX",
                 addressCountry: "GB",
               },
               sameAs: [
@@ -151,6 +151,7 @@ export default function RootLayout({
       <body className="scroll-smooth">
         <Header />
         <Chatbot />
+        <ScrollToTop />
         <div className="relative z-10">
           {children}
         </div>

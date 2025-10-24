@@ -3,8 +3,8 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
+import { TestimonialsCarousel } from "@/components/testimonials-carousel"
 import { motion } from "framer-motion"
 import {
   Code,
@@ -124,8 +124,6 @@ export default function ServicesPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <Header />
-
       {/* Hero Section */}
       <section className="py-20 lg:py-32">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -251,6 +249,9 @@ export default function ServicesPage() {
           </motion.div>
         </div>
       </section>
+
+      {/* Testimonials Section */}
+      <TestimonialsCarousel />
 
       {/* CTA Section */}
       <section className="py-20">

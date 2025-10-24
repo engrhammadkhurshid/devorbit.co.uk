@@ -10,8 +10,8 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { MapPin, Phone, Mail, Clock, Linkedin, Twitter, Github } from "lucide-react"
-import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
+import { TestimonialsCarousel } from "@/components/testimonials-carousel"
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -56,8 +56,6 @@ export default function ContactPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <Header />
-
       {/* Hero Section */}
       <section className="py-20 lg:py-32">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -216,28 +214,49 @@ export default function ContactPage() {
                   <div className="flex items-start space-x-4">
                     <MapPin className="h-5 w-5 text-primary mt-1" />
                     <div>
-                      <p className="font-medium">London Headquarters</p>
-                      <p className="text-sm text-muted-foreground">
-                        123 Tech Street
+                      <p className="font-medium">London Office</p>
+                      <a
+                        href="https://maps.app.goo.gl/tXX62RZ2YeGiJrsvg"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                      >
+                        18 Fonthill Rd
                         <br />
-                        London, EC2A 4DP
+                        Finsbury Park
+                        <br />
+                        London, N4 3HX
                         <br />
                         United Kingdom
-                      </p>
+                      </a>
                     </div>
                   </div>
                   <div className="flex items-center space-x-4">
                     <Phone className="h-5 w-5 text-primary" />
                     <div>
-                      <p className="font-medium">Phone</p>
-                      <p className="text-sm text-muted-foreground">+44 20 1234 5678</p>
+                      <p className="font-medium">WhatsApp / Phone</p>
+                      <a
+                        href="https://wa.me/447453217283"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                      >
+                        +44 7453 217283
+                      </a>
                     </div>
                   </div>
                   <div className="flex items-center space-x-4">
                     <Mail className="h-5 w-5 text-primary" />
                     <div>
                       <p className="font-medium">Email</p>
-                      <p className="text-sm text-muted-foreground">hello@devorbit.com</p>
+                      <a
+                        href="mailto:hello@devorbit.co.uk"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                      >
+                        hello@devorbit.co.uk
+                      </a>
                     </div>
                   </div>
                   <div className="flex items-start space-x-4">
@@ -305,27 +324,35 @@ export default function ContactPage() {
         </div>
       </section>
 
+      {/* Testimonials Section */}
+      <TestimonialsCarousel />
+
       {/* Map Section */}
       <section className="py-20 bg-card">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Visit Our London Office</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Visit Our Finsbury Park Office</h2>
             <p className="text-xl text-muted-foreground">
-              Located in the heart of London's tech district, we're always ready for in-person meetings.
+              Located at 18 Fonthill Rd in Finsbury Park, we're always ready for in-person meetings.
             </p>
           </div>
           <div className="rounded-lg overflow-hidden shadow-lg">
-            <div className="aspect-video bg-muted flex items-center justify-center">
+            <a
+              href="https://maps.app.goo.gl/tXX62RZ2YeGiJrsvg"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="aspect-video bg-muted flex items-center justify-center hover:bg-muted/80 transition-colors cursor-pointer"
+            >
               <div className="text-center">
                 <MapPin className="h-12 w-12 text-primary mx-auto mb-4" />
-                <p className="text-lg font-medium text-foreground">Interactive Map</p>
+                <p className="text-lg font-medium text-foreground">Open Location in Google Maps</p>
                 <p className="text-sm text-muted-foreground">
-                  123 Tech Street, London, EC2A 4DP
+                  18 Fonthill Rd, Finsbury Park
                   <br />
-                  (Map integration would be embedded here)
+                  London, N4 3HX, United Kingdom
                 </p>
               </div>
-            </div>
+            </a>
           </div>
         </div>
       </section>
